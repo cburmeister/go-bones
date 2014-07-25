@@ -9,21 +9,11 @@ func log(remote_addr string, method string, path string) {
     fmt.Println(remote_addr, method, path)
 }
 
-type loggedResponse struct {
-    w http.ResponseWriter
-    r *http.Request
-    url string
-}
-
 func UserHandler(w http.ResponseWriter, r *http.Request) {
     vars := mux.Vars(r)
     username := vars["username"]
 
     fmt.Fprintf(w, "Hi there %s!", username)
-
-    logged_response := &loggedResponse{w, r, r.URL.String()}
-
-    log(r.RemoteAddr, r.Method, r.URL.Path)
 }
 
 func main() {
